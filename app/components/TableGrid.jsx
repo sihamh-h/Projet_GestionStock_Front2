@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "@/theme";
 
-export default function TableGrid({ title, rows, columns, height = "75vh" }) {
+export default function TableGrid({ title, rows, columns, height = "75vh" , columnVisibilityModel = {}}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -69,9 +69,9 @@ export default function TableGrid({ title, rows, columns, height = "75vh" }) {
         }}
       >
         <DataGrid 
-        autoHeight
         disableRowSelectionOnClick 
-        rows={rows} columns={columns} />
+        rows={rows} columns={columns}
+        columnVisibilityModel={columnVisibilityModel}   />
       </Box>
     </Box>
   );

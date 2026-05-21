@@ -6,7 +6,7 @@ const SearchIcon = () => (
   </svg>
 );
 
-export default function SearchBar({ value, onChange, placeholder = "Rechercher...", width = 300 }) {
+export default function SearchBar({ value, onChange, placeholder = "Rechercher..." }) {
   return (
     <TextField
       placeholder={placeholder}
@@ -21,7 +21,12 @@ export default function SearchBar({ value, onChange, placeholder = "Rechercher..
         ),
       }}
       sx={{
-        width,
+        width: {
+          xs: "100%",   
+          sm: "250px",  
+          md: "300px",  
+          lg: "350px",  
+        },
         "& .MuiOutlinedInput-root": { borderRadius: "8px", fontSize: 13 },
       }}
     />

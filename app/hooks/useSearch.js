@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 
-// fields = les champs sur lesquels chercher
-// ex: ["name", "email", "reference"]
+
 export function useSearch(data = [], fields = []) {
   const [search, setSearch] = useState("");
 

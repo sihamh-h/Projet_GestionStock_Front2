@@ -10,6 +10,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { ChevronsLeft } from "lucide-react";
+import AlertBell from "@/components/AlertBell";
 
 
 
@@ -49,7 +50,7 @@ export default function TopBar({ collapsed, setCollapsed, profileImg }) {
         </IconButton>
 
         <IconButton>
-          <NotificationsOutlinedIcon />
+          <AlertBell />
         </IconButton>
 
         <IconButton>
