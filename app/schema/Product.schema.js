@@ -1,22 +1,11 @@
 import { z } from "zod";
 
 export const productSchema = z.object({
-  reference: z
-    .string()
-    .min(1, "La référence est obligatoire")
-    .max(50, "La référence ne peut pas dépasser 50 caractères"),
-
-  name: z
-    .string()
-    .min(1, "Le nom est obligatoire")
-    .max(50, "Le nom ne peut pas dépasser 50 caractères"),
-
-  description: z
-    .string()
-    .max(100, "La description ne peut pas dépasser 100 caractères")
-    .optional()
-    .or(z.literal("")),
-
+  reference: z.string().min(1, "La référence est obligatoire").max(50),
+  name:      z.string().min(1, "Le nom est obligatoire").max(50),
+  
+  description: z.string().max(100).optional().or(z.literal("")),
+  
   price: z.preprocess(
     (val) => (val === "" ? undefined : Number(val)),
     z.number({ invalid_type_error: "Le prix doit être un nombre" })
@@ -37,13 +26,12 @@ export const productSchema = z.object({
       .nonnegative("Le stock minimum doit être positif ou zéro")
   ),
 
-  categoryName: z
-    .string()
-    .min(1, "La catégorie est obligatoire"),
+  categoryId: z.preprocess(  // ← categoryId pas categoryName
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number({ invalid_type_error: "La catégorie est obligatoire" })
+      .int()
+      .positive("Veuillez sélectionner une catégorie")
+  ),
 
-  imageUrl: z
-    .string()
-    .url("URL invalide")
-    .optional()
-    .or(z.literal("")),
+  imageUrl: z.string().optional().or(z.literal("")),  // ← pas de .url()
 });

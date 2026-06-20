@@ -1,16 +1,19 @@
 import { z } from "zod";
 
 export const movementSchema = z.object({
-  productId: z
-    .number({ invalid_type_error: "L'ID produit doit être un nombre" })
-    .positive("L'ID produit doit être positif"),
+ type: z.union([
+  z.enum(["IN", "OUT"]),
+  z.array(z.enum(["IN", "OUT"])).transform((arr) => arr[0]),
+], {
+  errorMap: () => ({ message: "Le type doit être IN ou OUT" }),
+}),
 
-  type: z.enum(["IN", "OUT"], {
-    errorMap: () => ({ message: "Le type doit être IN ou OUT" }),
-  }),
-
-  quantity: z
+  quantity: z.coerce
     .number({ invalid_type_error: "La quantité doit être un nombre" })
     .positive("La quantité doit être positive")
     .int("La quantité doit être un entier"),
+
+  productId: z.coerce
+    .number({ invalid_type_error: "Veuillez sélectionner un produit" })
+    .positive("Veuillez sélectionner un produit"),
 });

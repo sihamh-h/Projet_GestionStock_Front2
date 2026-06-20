@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import NavBar from "./navigation/MainNav/NavBar";
 
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -21,6 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        
         {children}
         <ScrollRestoration />
         <Scripts />

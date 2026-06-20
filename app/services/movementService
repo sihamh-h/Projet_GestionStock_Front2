@@ -1,0 +1,28 @@
+import api from "./api";
+
+export const movementService = {
+  // GET /api/rest/movement
+  getMovements: async () => {
+    const response = await api.get("/api/rest/movement");
+    return response.data;
+  },
+
+  // GET /api/rest/movement/{id}
+  getMovementById: async (id) => {
+    const response = await api.get(`/api/rest/movement/${id}`);
+    return response.data;
+  },
+
+  // GET /api/rest/movement/my-movements
+  getMyMovements: async () => {
+    const response = await api.get("/api/rest/movement/my-movements");
+    return response.data;
+  },
+
+  // POST /api/rest/movement/create
+  // payload: { productId: Number, quantity: Number, type: "IN" | "OUT" }
+  createMovement: async (payload) => {
+    const response = await api.post("/api/rest/movement/create", payload);
+    return response.data;
+  },
+};

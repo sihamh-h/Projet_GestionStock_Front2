@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Box, Typography, Badge, IconButton, Paper, Divider } from "@mui/material";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import { mockAlerts } from "@/mock/AdminData";
+import { useAlerts } from "@/hooks/useAlerts";
 
 const SEVERITY_CONFIG = {
   LOW:      { color: "#34d399" },
@@ -16,16 +16,21 @@ function formatTime(createdAt) {
     const [, , , h, min] = createdAt;
     return `${String(h).padStart(2,"0")}:${String(min).padStart(2,"0")}`;
   }
+  if (typeof createdAt === "string") {
+    const date = new Date(createdAt);
+    return `${String(date.getHours()).padStart(2,"0")}:${String(date.getMinutes()).padStart(2,"0")}`;
+  }
   return "";
 }
 
 export default function AlertBell() {
-  const [open, setOpen] = useState(false);
-  const [read, setRead] = useState(false);
-  const [alerts] = useState(mockAlerts);  // ← mock statique
+  const [open, setOpen]         = useState(false);
+  const [readCount, setReadCount] = useState(0);
   const ref = useRef(null);
 
-  const unreadCount = read ? 0 : alerts.length;
+  const { alerts } = useAlerts();
+
+  const unreadCount = Math.max(0, alerts.length - readCount);
 
   useEffect(() => {
     const handler = (e) => {
@@ -37,7 +42,7 @@ export default function AlertBell() {
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
-    setRead(true);
+    setReadCount(alerts.length); // marque tout comme lu
   };
 
   return (

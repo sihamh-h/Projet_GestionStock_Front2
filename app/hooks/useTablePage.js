@@ -1,5 +1,5 @@
 // hooks/useTablePage.js
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect  } from "react";
 import { useSearch } from "./useSearch";
 
 export function useTablePage(initialData, searchFields = [], filterFn = null) {
@@ -9,8 +9,13 @@ export function useTablePage(initialData, searchFields = [], filterFn = null) {
   const [editOpen, setEditOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [activeFilter, setActiveFilter] = useState("TOUS");
+  const [createOpen, setCreateOpen]     = useState(false); 
 
   const { search, setSearch, filtered } = useSearch(items, searchFields);
+
+  useEffect(() => {
+    setItems(initialData);
+  }, [initialData]);
 
   const filteredByChip = useMemo(() => {
     if (activeFilter === "TOUS") return filtered;
@@ -55,6 +60,10 @@ export function useTablePage(initialData, searchFields = [], filterFn = null) {
     );
   };
 
+  const saveCreate = (data) => {                              
+    setItems((prev) => [{ ...data, id: Date.now() }, ...prev]);
+  };
+
   return {
     items,
     filteredByChip,
@@ -63,6 +72,7 @@ export function useTablePage(initialData, searchFields = [], filterFn = null) {
     deleteOpen, selectedItem, confirmDelete, cancelDelete,
     editOpen, editItem,
     setEditOpen,
+    createOpen, setCreateOpen, saveCreate, 
     handleEdit,
     handleDelete,
     saveEdit,

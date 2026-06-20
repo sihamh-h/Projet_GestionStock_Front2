@@ -5,7 +5,7 @@ export const adminNav = [
   {
     section: "Principal",
     items: [
-      { label: "Dashboard", to: "/", icon: icons.dashboard },
+      { label: "Dashboard", to: "admin/dashboard", icon: icons.dashboard },
     ],
   },
   {
@@ -14,23 +14,23 @@ export const adminNav = [
       {
         label: "Catégories", icon: icons.category,
         children: [
-          { label: "Toutes les catégories", to: "/categories" },
-          { label: "Ajouter catégorie",     to: "/categories/nouveau" },
+          { label: "Toutes les catégories", to: "admin/category" },
+          { label: "Ajouter catégorie",     to: "admin/category/nouveau" },
         ],
       },
       {
         label: "Produits", icon: icons.products,
         children: [
-          { label: "Tous les produits", to: "/produits" },
-          { label: "Ajouter produit",   to: "/produits/nouveau" },
+          { label: "Tous les produits", to: "admin/product" },
+          { label: "Ajouter produit",   to: "admin/produits/nouveau" },
         ],
       },
       {
         label: "Mouvements", icon: icons.movements,
         children: [
-          { label: "Tous les mouvements", to: "/mouvements" },
-          { label: "Mes mouvements",      to: "/mouvements/mes" },
-          { label: "Nouveau mouvement",   to: "/mouvements/nouveau" },
+          { label: "Tous les mouvements", to: "admin/mouvement" },
+          { label: "Mes mouvements",      to: "admin/mouvements/mes" },
+          { label: "Nouveau mouvement",   to: "admin/mouvements/nouveau" },
         ],
       },
     ],
@@ -41,8 +41,8 @@ export const adminNav = [
       {
         label: "Fournisseurs", icon: icons.suppliers,
         children: [
-          { label: "Tous les fournisseurs", to: "/fournisseurs" },
-          { label: "Ajouter fournisseur",   to: "/fournisseurs/nouveau" },
+          { label: "Tous les fournisseurs", to: "admin/supplier" },
+          { label: "Ajouter fournisseur",   to: "admin/suppliers/nouveau" },
         ],
       },
       {
@@ -151,7 +151,7 @@ export const employeNav = [
   {
     section: "Stock",
     items: [
-      { label: "Product",       to: "/product",       icon: icons.products  },
+      { label: "Product",       to: "admin/product",       icon: icons.products  },
       { label: "Mes mouvements", to: "/mouvements/mes", icon: icons.movements },
       { label: "Alertes",        to: "/alertes",        icon: icons.alert     },
     ],

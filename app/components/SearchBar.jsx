@@ -1,4 +1,6 @@
 import { TextField, InputAdornment } from "@mui/material";
+import { useTheme } from "@mui/material";
+
 
 const SearchIcon = () => (
   <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
@@ -7,6 +9,9 @@ const SearchIcon = () => (
 );
 
 export default function SearchBar({ value, onChange, placeholder = "Rechercher..." }) {
+  const theme = useTheme();
+  const isLight = theme.palette.mode === "light";
+
   return (
     <TextField
       placeholder={placeholder}
@@ -20,14 +25,21 @@ export default function SearchBar({ value, onChange, placeholder = "Rechercher..
           </InputAdornment>
         ),
       }}
-      sx={{
-        width: {
-          xs: "100%",   
-          sm: "250px",  
-          md: "300px",  
-          lg: "350px",  
+       sx={{
+        width: { xs: "100%", sm: "250px", md: "300px", lg: "350px" },
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "24px",
+          fontSize: 13,
+          backgroundColor: isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)",
+          backdropFilter: isLight ? "none" : "blur(10px)",  // ← désactive en light
+          "& fieldset": { border: isLight ? "1px solid rgba(0,0,0,0.15)" : "none" },
+          "&:hover fieldset": { borderColor: isLight ? "rgba(59,130,246,0.4)" : "none" },
+          "&.Mui-focused": {
+            backgroundColor: isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.08)",
+            boxShadow: "0 0 0 1px rgba(96,165,250,0.4)",
+          },
+          "&.Mui-focused fieldset": { border: "none" },
         },
-        "& .MuiOutlinedInput-root": { borderRadius: "8px", fontSize: 13 },
       }}
     />
   );
