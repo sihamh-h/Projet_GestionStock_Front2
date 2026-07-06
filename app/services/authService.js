@@ -2,10 +2,9 @@ import api from "./api";
 import {toBackendDate} from "@/utils/formaDate";
 
 export const authService = {
-  // POST /api/rest/auth/login
+
   login: async ({ email, password }) => {
     const response = await api.post("/api/rest/auth/login", { email, password });
-    // Ton back retourne { message, User: { token, refreshToken, roles, ... } }
     return response.data.User;
   },
 
@@ -33,7 +32,6 @@ activateAccount: async (token) => {
 
    
 
-  // POST /api/rest/auth/refresh
   refresh: async (refreshToken) => {
     const response = await api.post("/api/rest/auth/refresh", { refreshToken });
     return response.data;

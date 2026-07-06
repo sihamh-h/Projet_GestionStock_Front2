@@ -27,7 +27,6 @@ export default function Hero({ onRegisterOpen }) {
 
   const navigate = useNavigate();
 
-
   const chartData = chartConfig.labels.map((label, index) => {
     const dataPoint = { label };
     chartConfig.series.forEach((series) => {
@@ -61,7 +60,7 @@ export default function Hero({ onRegisterOpen }) {
       <div className="absolute bottom-20 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-500/15 rounded-full blur-xl animate-pulse delay-1000" />
 
       {/* Contenu principal */}
-      
+
       <div className="py-16 max-w-7xl mx-auto text-center relative w-full">
         <div className="max-w-7xl mx-auto flex flex-col text-center  gap-6 sm:gap-8 lg:gap-12 items-center relative">
           <div>
@@ -72,7 +71,7 @@ export default function Hero({ onRegisterOpen }) {
                 Le flux intelligent de votre stock{" "}
               </span>
             </div>
-            
+
             <h1 className="text-5xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-4 sm:mb-6 animate-in slide-in-from-bottom duration-200 delay-300 leading-tight">
               <span className="bg-linear-to-r from-white via-blue-400 to-cyan-200 bg-clip-text text-transparent block mb-1 sm:mb-2  sm:-translate-x-24 lg:-translate-x-60 md:-translate-x-24">
                 Maitrisez votre <b>Stock</b>
@@ -87,61 +86,84 @@ export default function Hero({ onRegisterOpen }) {
               Anticipez les ruptures, optimisez vos coûts et prenez les bonnes
               décisions.
             </p>
-            <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-12 animate-in slide-in-from-bottom duration-700 delay-300">
-              <button onClick={onRegisterOpen} className="group rounded-full w-full border border-white/15 backdrop-blur-lg px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-b from-blue-400 font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-102 flex items-center justify-center space-x-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-12 animate-in slide-in-from-bottom duration-700 delay-300">
+              <button
+                onClick={onRegisterOpen}
+                className="group rounded-full border border-white/15 backdrop-blur-lg px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-b from-blue-400 font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-102 flex items-center justify-center space-x-2"
+              >
                 <span>Commencer maintenant</span>
                 <div className="p-2 bg-white/10 rounded-full items-center group-hover:translate-x-1 transition-transform duration-300">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </button>
 
-              <button  onClick={() => document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" })} className="group rounded-full w-full  px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-b from-white/15 backdrop-blur-lg border border-white/10 font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-white/10 flex items-center justify-center space-x-2">
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("demo")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="group rounded-full   px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-b from-white/15 backdrop-blur-lg border border-white/10 font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-white/10 flex items-center justify-center space-x-2"
+              >
                 <div className="p-2 bg-white/10 rounded-full group-hover:bg-white/20 duration-300 transition-colors">
                   <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-white" />
                 </div>
                 <span>Voir la démonstration</span>
               </button>
-              
             </div>
-        
-            
           </div>
-              {/* 3 images flottantes */}
-<div className="relative flex flex-col lg:flex-row pt:0 mt:0 items-center justify-center w-full -mt-20 gap-8 lg:gap-12 xl:gap-16">
+          {/* 3 images flottantes */}
+          <div className="relative flex flex-col lg:flex-row pt:0 mt:0 items-center justify-center w-full -mt-10 gap-8 lg:gap-12 xl:gap-16">
+            {/* Image gauche — graphique */}
+            <div className="hidden xl:block z-10 xl:pt-0 animate-[float_4s_ease-in-out_infinite_0.5s]">
+              <div
+                className="relative lg:block w-64 h-72 rounded-full overflow-hidden border border-white/10 shadow-2xl"
+                style={{ boxShadow: "0 0 20px rgba(251,191,36,0.2)" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent z-10 pointer-events-none" />
+                <img
+                  src="/images/hero-growth.webp"
+                  alt="Croissance stock"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
 
-  {/* Image gauche — graphique */}
- <div className="hidden xl:block z-10 xl:pt-0 animate-[float_4s_ease-in-out_infinite_0.5s]">
-    <div className="relative lg:block w-64 h-72 rounded-full overflow-hidden border border-white/10 shadow-2xl"
-      style={{ boxShadow: "0 0 20px rgba(251,191,36,0.2)" }}>
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent z-10 pointer-events-none" />
-      <img src="/images/hero-growth.jpg" alt="Croissance stock" className="w-full h-full object-cover" />
-    </div>
-  </div>
+            {/* Image centre — laptop stock (plus grande) */}
+            <div className="relative z-20 animate-[float_3s_ease-in-out_infinite]">
+              <div
+                className="relative w-l h-2xl xl:w-3xl rounded-t-full overflow-hidden border border-blue-400/20 shadow-2xl"
+                style={{ boxShadow: "0 0 30px rgba(96,165,250,0.25)" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent z-10 pointer-events-none" />
+                <img
+                  src="/images/hero-stock.webp"
+                  alt="Gestion stock"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
+            </div>
 
-  {/* Image centre — laptop stock (plus grande) */}
-  <div className="relative z-20 animate-[float_3s_ease-in-out_infinite]">
-    <div className="relative w-xl h-2xl xl:w-3xl rounded-t-full overflow-hidden border border-blue-400/20 shadow-2xl"
-      style={{ boxShadow: "0 0 30px rgba(96,165,250,0.25)" }}>
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent z-10 pointer-events-none" />
-      <img src="/images/hero-stock.jpg" alt="Gestion stock" className="w-full h-full object-cover" />
-    </div>
-  </div>
-
-  {/* Image droite — réseau utilisateurs */}
-  <div className="hidden xl:block z-10 xl:pt-0 animate-[float_4.5s_ease-in-out_infinite_1s]">
-    <div className="relative w-64 h-72 rounded-full overflow-hidden border border-white/10 shadow-2xl"
-      style={{ boxShadow: "0 0 20px rgba(52,211,153,0.2)" }}>
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent z-10 pointer-events-none" />
-      <img src="/images/hero-team.jpg" alt="Équipe" className="w-full h-full object-cover" />
-    </div>
-  </div>
-
-</div>
-          
-          
+            {/* Image droite — réseau utilisateurs */}
+            <div className="hidden xl:block z-10 xl:pt-0 animate-[float_4.5s_ease-in-out_infinite_1s]">
+              <div
+                className="relative w-64 h-72 rounded-full overflow-hidden border border-white/10 shadow-2xl"
+                style={{ boxShadow: "0 0 20px rgba(52,211,153,0.2)" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent z-10 pointer-events-none" />
+                <img
+                  src="/images/hero-team.webp"
+                  alt="Équipe"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-       
-        
+
         <div id="demo" className="relative order-2 w-full mt-32">
           <div className="relative rounded-3xl  bg-[linear-gradient(135deg,rgba(255,255,255,0.25)_0%,rgba(255,255,255,0.05)_50%,rgba(255,255,255,0.15)_100%)] backdrop-blur-xl sm:rounded-2xl p-3 sm:p-4 lg:h-auto shadow-2xl border border-white/15">
             <div className=" rounded-3xl bg-[linear-gradient(160deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.04)_40%,rgba(255,255,255,0.08)_100%)] backdrop-blur-xl backdrop-saturate-150 lg:h-auto border border-white/15">
@@ -163,34 +185,42 @@ export default function Hero({ onRegisterOpen }) {
               {/* Reflet diagonal */}
 
               {/* IDE HEADER */}
-              <div className="relative flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20 rounded-3xl">
-                <span className="text-[13px] sm:text-sm text-white/70 font-bold">
-                  {" "}
-                  StockiFlow
-                </span>
-                <div className="flex gap-2">
-                  {heroTabs.map((tab) => {
-                    const isActive = activeTab === tab.id;
+             <div className="relative w-full overflow-hidden rounded-3xl border border-white/10 backdrop-blur-xl p-3 sm:p-4"
+  style={{
+    background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 24px rgba(0,0,0,0.2)",
+  }}>
 
-                    return (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`px-4 py-2.5 rounded-full text-base font-semibold cursor-pointer transition-all duration-300 backdrop-blur-sm border ${
-                          isActive
-                            ? "border-white/20 text-white shadow-[0_4px_16px_rgba(99,102,241,0.3),inset_0_1px_0_rgba(255,255,255,0.2)] bg-linear-to-b from-blue-400 via-blue-400 to-black/45"
-                            : "border-white/15 text-white/50 bg-white/[0.07]"
-                        }`}
-                      >
-                        {tab.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+  {/* Layout : colonne sur mobile, ligne sur sm+ */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    
+    {/* Logo StockiFlow */}
+    <span className="text-white/60 text-sm font-medium text-center sm:text-left">StockiFlow</span>
+
+    {/* Tabs */}
+    <div className="flex gap-1 sm:gap-2 overflow-x-auto scrollbar-hide">
+      {heroTabs.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-2 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-base font-semibold cursor-pointer transition-all duration-300 backdrop-blur-sm border whitespace-nowrap flex-shrink-0 ${
+              isActive
+                ? "border-white/20 text-white shadow-[0_4px_16px_rgba(99,102,241,0.3),inset_0_1px_0_rgba(255,255,255,0.2)] bg-linear-to-b from-blue-400 via-blue-400 to-black/45"
+                : "border-white/15 text-white/50 bg-white/[0.07]"
+            }`}
+          >
+            {tab.label}
+          </button>
+        );
+      })}
+    </div>
+  </div>
               {/*contenu carré Kpi*/}
               <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 <HeroKpisGrid heroKpis={heroKpis} />
+              </div>
               </div>
 
               <div className="mt-8 rounded-xl bg-slate-200/0 border border-slate-300/30 p-4 backdrop-blur-md">
@@ -246,7 +276,6 @@ export default function Hero({ onRegisterOpen }) {
           </div>
         </div>
       </div>
-      
     </section>
   );
 }

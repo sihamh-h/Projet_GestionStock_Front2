@@ -60,9 +60,7 @@ export default function TopBar({ collapsed, setCollapsed, profileImg, onMobileMe
 
         <AlertBell />
 
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
+       
 
         {/* Bouton profil */}
         <IconButton onClick={handleOpenMenu} sx={{ ml: 0.5 }}>

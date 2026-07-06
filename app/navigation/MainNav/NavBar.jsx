@@ -1,4 +1,4 @@
-import logo from "/images/logo5.png";
+import logo from "/images/logo5.webp";
 import { NavLink } from "react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";

@@ -6,7 +6,6 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// ── Intercepteur requête — ajoute le token automatiquement ─────
 api.interceptors.request.use((config) => {
   const token = getAccessToken();
   if (token) {
@@ -15,7 +14,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// ── Intercepteur réponse — refresh token si 401 ────────────────
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -25,7 +24,6 @@ api.interceptors.response.use(
       originalRequest.url?.includes("/auth/login") ||
       originalRequest.url?.includes("/auth/register");
 
-    // Si 401 et pas déjà tenté le refresh
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthRoute) {
       originalRequest._retry = true;
 

@@ -32,7 +32,7 @@ export function Terms() {
 
           <div>
             <h2 className="text-white font-semibold text-base mb-2">4. Rôles et permissions</h2>
-            <p>StockiFlow propose un système de rôles (administrateur, gestionnaire, utilisateur). Les droits d'accès sont définis par l'administrateur du compte. Chaque utilisateur ne peut accéder qu'aux fonctionnalités correspondant à son rôle.</p>
+            <p>StockiFlow propose un système de rôles (administrateur, gestionnaire, employé). Les droits d'accès sont définis par l'administrateur du compte. Chaque utilisateur ne peut accéder qu'aux fonctionnalités correspondant à son rôle.</p>
           </div>
 
           <div>

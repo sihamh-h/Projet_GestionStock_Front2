@@ -8,6 +8,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { userService } from "@/services/userService";
 import { uploadService } from "@/services/uploadService";
 import { toBackendDate, toInputDate } from "@/utils/formaDate";
+import { profileService } from "@/services/profileService";
+import { Eye, EyeOff, Lock } from "lucide-react";
 
 const profileSchema = z.object({
   firstname:   z.string().min(1, "Prénom requis"),
@@ -44,6 +46,24 @@ export default function ProfileDialog({ open, onClose }) {
   const [successMsg,     setSuccessMsg]     = useState("");
   const [imageUrl,       setImageUrl]       = useState("");
   const [uploadLoading,  setUploadLoading]  = useState(false);
+
+  const [pwdOpen,       setPwdOpen]       = useState(false);
+const [pwdError,      setPwdError]      = useState("");
+const [pwdSuccess,    setPwdSuccess]    = useState("");
+const [showCurrent,   setShowCurrent]   = useState(false);
+const [showNew,       setShowNew]       = useState(false);
+
+const {
+  register: registerPwd,
+  handleSubmit: handleSubmitPwd,
+  reset: resetPwd,
+  formState: { errors: pwdErrors, isSubmitting: isPwdSubmitting },
+} = useForm({
+  resolver: zodResolver(z.object({
+    currentPassword: z.string().min(1, "Requis"),
+    newPassword: z.string().min(12, "12 caractères minimum"),
+  })),
+});
   
 
   const initials = user?.firstname && user?.lastname
@@ -121,6 +141,21 @@ export default function ProfileDialog({ open, onClose }) {
       );
     }
   };
+
+  const onSubmitPassword = async (data) => {
+  setPwdError("");
+  setPwdSuccess("");
+  try {
+    await profileService.changePassword(user.id, data.currentPassword, data.newPassword);
+    setPwdSuccess("Mot de passe modifié avec succès !");
+    resetPwd();
+    setPwdOpen(false);
+  } catch (err) {
+    setPwdError(
+      err.response?.data?.message ?? err.message ?? "Une erreur est survenue."
+    );
+  }
+};
 
   if (!open) return null;
 
@@ -282,6 +317,88 @@ export default function ProfileDialog({ open, onClose }) {
                 {successMsg}
               </div>
             )}
+
+            {/* Changer le mot de passe */}
+<div className="rounded-xl overflow-hidden"
+  style={{ border: "0.5px solid rgba(255,255,255,0.1)" }}>
+  <button type="button"
+    onClick={() => { setPwdOpen(p => !p); setPwdError(""); setPwdSuccess(""); }}
+    className="w-full flex items-center justify-between px-4 py-3 text-sm text-slate-300 hover:text-white transition-colors"
+    style={{ background: "rgba(255,255,255,0.04)" }}>
+    <div className="flex items-center gap-2">
+      <Lock size={14} className="text-blue-400" />
+      <span>Changer le mot de passe</span>
+    </div>
+    <span className="text-slate-500 text-xs">{pwdOpen ? "▲" : "▼"}</span>
+  </button>
+
+  {pwdOpen && (
+    <form onSubmit={handleSubmitPwd(onSubmitPassword)}
+      className="px-4 pb-4 pt-2 space-y-3"
+      style={{ background: "rgba(0,0,0,0.2)" }}>
+
+      {/* Mot de passe actuel */}
+      <div className="space-y-1">
+        <label className="text-xs font-medium text-slate-300">Mot de passe actuel</label>
+        <div className="relative">
+          <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <input {...registerPwd("currentPassword")}
+            type={showCurrent ? "text" : "password"}
+            placeholder="••••••••••••"
+            className="w-full pl-9 pr-9 py-2.5 rounded-xl text-sm text-white placeholder-slate-500 outline-none"
+            style={inputStyle(pwdErrors.currentPassword)} />
+          <button type="button" onClick={() => setShowCurrent(p => !p)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+            {showCurrent ? <EyeOff size={14} /> : <Eye size={14} />}
+          </button>
+        </div>
+        {pwdErrors.currentPassword && <p className="text-xs text-red-400">{pwdErrors.currentPassword.message}</p>}
+      </div>
+
+      {/* Nouveau mot de passe */}
+      <div className="space-y-1">
+        <label className="text-xs font-medium text-slate-300">Nouveau mot de passe</label>
+        <div className="relative">
+          <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <input {...registerPwd("newPassword")}
+            type={showNew ? "text" : "password"}
+            placeholder="••••••••••••"
+            className="w-full pl-9 pr-9 py-2.5 rounded-xl text-sm text-white placeholder-slate-500 outline-none"
+            style={inputStyle(pwdErrors.newPassword)} />
+          <button type="button" onClick={() => setShowNew(p => !p)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+            {showNew ? <EyeOff size={14} /> : <Eye size={14} />}
+          </button>
+        </div>
+        {pwdErrors.newPassword && <p className="text-xs text-red-400">{pwdErrors.newPassword.message}</p>}
+        <p className="text-xs text-slate-500">12 caractères min, majuscule, chiffre, caractère spécial</p>
+      </div>
+
+      {pwdError && (
+        <div className="px-4 py-3 rounded-xl text-sm text-red-300 text-center"
+          style={{ background: "rgba(248,113,113,0.1)", border: "0.5px solid rgba(248,113,113,0.3)" }}>
+          {pwdError}
+        </div>
+      )}
+      {pwdSuccess && (
+        <div className="px-4 py-3 rounded-xl text-sm text-green-300 text-center"
+          style={{ background: "rgba(52,211,153,0.1)", border: "0.5px solid rgba(52,211,153,0.3)" }}>
+          {pwdSuccess}
+        </div>
+      )}
+
+      <button type="submit" disabled={isPwdSubmitting}
+        className="w-full py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300"
+        style={{
+          background: "linear-gradient(135deg, rgba(59,130,246,0.8) 0%, rgba(37,99,235,1) 50%, rgba(59,130,246,0.6) 100%)",
+          border: "0.5px solid rgba(96,165,250,0.4)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 16px rgba(59,130,246,0.3)",
+        }}>
+        {isPwdSubmitting ? "Modification..." : "Confirmer"}
+      </button>
+    </form>
+  )}
+</div>
 
             {/* Bouton */}
             <button type="submit" disabled={isSubmitting || (!isDirty && !imageUrl)}

@@ -19,9 +19,9 @@ export function Privacy() {
             <p>Dans le cadre de l'utilisation de StockiFlow, nous collectons les données suivantes :</p>
             <ul className="mt-2 space-y-1 list-disc list-inside text-gray-400">
               <li>Nom et prénom</li>
-              <li>Adresse email (utilisée pour l'authentification et l'activation du compte)</li>
+              <li> Email (utilisée pour l'authentification et l'activation du compte)</li>
               <li>Mot de passe (stocké de manière chiffrée, non accessible en clair)</li>
-              <li>Logs d'activité (actions effectuées dans l'application, horodatées)</li>
+              <li>Logs d'activité (actions effectuées dans l'application)</li>
               <li>Photo de profil (optionnelle)</li>
             </ul>
           </div>

@@ -31,7 +31,7 @@ export default function SearchBar({ value, onChange, placeholder = "Rechercher..
           borderRadius: "24px",
           fontSize: 13,
           backgroundColor: isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)",
-          backdropFilter: isLight ? "none" : "blur(10px)",  // ← désactive en light
+          backdropFilter: isLight ? "none" : "blur(10px)",  
           "& fieldset": { border: isLight ? "1px solid rgba(0,0,0,0.15)" : "none" },
           "&:hover fieldset": { borderColor: isLight ? "rgba(59,130,246,0.4)" : "none" },
           "&.Mui-focused": {

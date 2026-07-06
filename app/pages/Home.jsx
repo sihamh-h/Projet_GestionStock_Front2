@@ -1,15 +1,20 @@
 import NavBar from "@/navigation/MainNav/NavBar";
 import Hero from "@/components/Hero";
-import ProblemSolution from "@/components/ProblemSolution";
-import Features from "@/components/Features";
-import HowItWorks from "@/components/HowItWorks";
-import Faq from "@/components/Faq";
-import Footer from "@/navigation/footer/Footer";
+//import ProblemSolution from "@/components/ProblemSolution";
+//import Features from "@/components/Features";
+//import HowItWorks from "@/components/HowItWorks";
+//import Faq from "@/components/Faq";
+//import Footer from "@/navigation/footer/Footer";
 import LoginDialog from "@/components/LoginDialog";
 import RegisterDialog from "@/components/RegisterDialog";
 import { useState } from "react";
+import {lazy, Suspense } from "react";
 
-
+const ProblemSolution = lazy(() => import("@/components/ProblemSolution"));
+const Features = lazy(() => import("@/components/Features"));
+const HowItWorks = lazy(() => import("@/components/HowItWorks"));
+const Faq = lazy(() => import("@/components/Faq"));
+const Footer = lazy(() => import("@/navigation/footer/Footer"));
 
 export function Home() {
   const [loginOpen, setLoginOpen] = useState(false);
@@ -25,12 +30,13 @@ export function Home() {
         onClose={() => setRegisterOpen(false)}
         onSuccess={() => { setRegisterOpen(false); setLoginOpen(true); }}
       />
+      <Suspense fallback={null}>
         <ProblemSolution/>
         <Features/>
         <HowItWorks/>
         <Faq/>
         <Footer/>
-  
+  </Suspense>
       </main>
   );
 }

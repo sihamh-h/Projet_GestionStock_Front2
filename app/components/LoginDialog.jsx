@@ -131,7 +131,8 @@ export default function LoginDialog({ open, onClose }) {
 
               {/* Email */}
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-slate-300"
+                 htmlFor="login-email">
                   Email
                 </label>
                 <div className="relative">
@@ -141,9 +142,12 @@ export default function LoginDialog({ open, onClose }) {
                   />
                   <input
                     {...register("email")}
-                    type="email"
+                    id="login-email"
+                    type="email" 
                     placeholder="votre@email.com"
                     autoComplete="email"
+                    aria-invalid={errors.email ? "true" : "false"}
+                    aria-describedby={errors.email ? "login-email-error" : undefined}
                     className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-slate-500 outline-none transition-all duration-200"
                     style={{
                       background: "rgba(255,255,255,0.06)",
@@ -171,7 +175,8 @@ export default function LoginDialog({ open, onClose }) {
 
               {/* Mot de passe */}
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-slate-300"
+                htmlFor="login-password">
                   Mot de passe
                 </label>
                 <div className="relative">
@@ -181,6 +186,7 @@ export default function LoginDialog({ open, onClose }) {
                   />
                   <input
                     {...register("password")}
+                    id="login-password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     autoComplete="current-password"
@@ -206,13 +212,14 @@ export default function LoginDialog({ open, onClose }) {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-xs text-red-400">
+                  <p id="login-password-error" role="alert" className="text-xs text-red-400">
                     {errors.password.message}
                   </p>
                 )}
@@ -233,6 +240,7 @@ export default function LoginDialog({ open, onClose }) {
               {/* Erreur serveur */}
               {serverError && (
                 <div
+                role= "alert"
                   className="px-4 py-3 rounded-xl text-sm text-red-300 text-center"
                   style={{
                     background: "rgba(248,113,113,0.1)",
